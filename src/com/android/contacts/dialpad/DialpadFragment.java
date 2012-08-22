@@ -1801,8 +1801,12 @@ public class DialpadFragment extends Fragment
         } else {
             try {
                 mSubscription = MSimTelephonyManager.getDefault().getPreferredVoiceSubscription();
-                return (MSimTelephonyManager.getDefault().
-                        getVoiceMailNumber(mSubscription) != null);
+                if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+                    return (MSimTelephonyManager.getDefault().
+                            getVoiceMailNumber(mSubscription) != null);
+                } else {
+                    return (TelephonyManager.getDefault().getVoiceMailNumber() != null);
+                }
             } catch (SecurityException se) {
                 // Possibly no READ_PHONE_STATE privilege.
                 Log.w(TAG, "SecurityException is thrown. Maybe privilege isn't sufficient.");
