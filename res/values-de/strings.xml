@@ -215,6 +215,8 @@
     <string name="description_view_contact_detail" msgid="9133251213656414807">"Kontakt anzeigen"</string>
     <string name="no_sdcard_message" product="nosdcard" msgid="5242558018442357189">"Kein Speicher gefunden"</string>
     <string name="no_sdcard_message" product="default" msgid="3357810406684913482">"Keine SD-Karte gefunden"</string>
+    <string name="manage_sim_contacts">SIM-Kontakte verwalten</string>
+    <string name="export_to_sim">Auf SIM-Karte exportieren</string>
     <string name="import_from_sim" msgid="3859272228033941659">"Von SIM-Karte importieren"</string>
     <string name="import_from_sdcard" product="default" msgid="8668347930577565175">"Aus Speicher importieren"</string>
     <string name="export_to_sdcard" product="default" msgid="6092815580965201089">"In Speicher exportieren"</string>
@@ -560,6 +562,10 @@
     <string name="dialog_voicemail_not_ready_message" msgid="4384716252789515378">"Konfigurieren Sie Ihre Mailbox unter \"Menü\" &gt; \"Einstellungen\"."</string>
     <string name="dialog_voicemail_airplane_mode_message" msgid="530922773669546093">"Deaktivieren Sie zunächst den Flugmodus, um die Mailbox anzurufen."</string>
     <string name="action_menu_overflow_description" msgid="2303272250613084574">"Mehr Optionen"</string>
+    <string name="Import_All">Kontakte von allen SIM-Karten importieren</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="select_sim">SIM-Karte wählen</string>
     <string name="t9_loading">Lade Kontakte\u2026</string>
     <string name="t9_sort_title">T9-Sortierung</string>
     <string name="t9_sort_summary">Reihenfolge der T9-Resultate auswählen</string>
