@@ -592,14 +592,20 @@ import libcore.util.Objects;
         CharSequence formattedNumber = info.formattedNumber;
         final int[] callTypes = getCallTypes(c, count);
         final String geocode = c.getString(CallLogQuery.GEOCODED_LOCATION);
+        int subscription;
+        if (!c.isNull(CallLogQuery.SUB_ID))
+            subscription = c.getInt(CallLogQuery.SUB_ID);
+        else
+            subscription = -1;
         final PhoneCallDetails details;
         if (TextUtils.isEmpty(name)) {
             details = new PhoneCallDetails(number, formattedNumber, countryIso, geocode,
-                    callTypes, date, duration);
+                    callTypes, date, duration, subscription);
         } else {
             // We do not pass a photo id since we do not need the high-res picture.
             details = new PhoneCallDetails(number, formattedNumber, countryIso, geocode,
-                    callTypes, date, duration, name, ntype, label, lookupUri, null);
+                    callTypes, date, duration, name, ntype, label, lookupUri, null,
+                    subscription);
         }
 
         final boolean isNew = c.getInt(CallLogQuery.IS_READ) == 0;

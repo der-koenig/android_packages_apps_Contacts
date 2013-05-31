@@ -41,6 +41,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import static com.android.internal.telephony.MSimConstants.SUBSCRIPTION_KEY;
+
 public class ContactsUtils {
     private static final String TAG = "ContactsUtils";
     private static final String WAIT_SYMBOL_AS_STRING = String.valueOf(PhoneNumberUtils.WAIT);
@@ -244,6 +246,10 @@ public class ContactsUtils {
         return getCallIntent(number, null);
     }
 
+    public static Intent getCallIntent(String number, int subscription) {
+        return getCallIntent(number, null, subscription);
+    }
+
     /**
      * Return an Intent for making a phone call. A given Uri will be used as is (without any
      * sanity check).
@@ -252,12 +258,20 @@ public class ContactsUtils {
         return getCallIntent(uri, null);
     }
 
+    public static Intent getCallIntent(Uri uri, int subscription) {
+        return getCallIntent(uri, null, subscription);
+    }
+
     /**
      * A variant of {@link #getCallIntent(String)} but also accept a call origin. For more
      * information about call origin, see comments in Phone package (PhoneApp).
      */
     public static Intent getCallIntent(String number, String callOrigin) {
-        return getCallIntent(getCallUri(number), callOrigin);
+        return getCallIntent(getCallUri(number), callOrigin, -1);
+    }
+
+    public static Intent getCallIntent(String number, String callOrigin, int subscription) {
+        return getCallIntent(getCallUri(number), callOrigin, subscription);
     }
 
     /**
@@ -265,10 +279,17 @@ public class ContactsUtils {
      * information about call origin, see comments in Phone package (PhoneApp).
      */
     public static Intent getCallIntent(Uri uri, String callOrigin) {
+        return getCallIntent(uri, callOrigin, -1);
+    }
+
+    public static Intent getCallIntent(Uri uri, String callOrigin, int subscription) {
         final Intent intent = new Intent(Intent.ACTION_CALL_PRIVILEGED, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (callOrigin != null) {
             intent.putExtra(DialtactsActivity.EXTRA_CALL_ORIGIN, callOrigin);
+        }
+        if (subscription != -1) {
+            intent.putExtra(SUBSCRIPTION_KEY, subscription);
         }
         return intent;
     }

@@ -21,6 +21,7 @@ import com.android.contacts.R;
 
 import android.content.Context;
 import android.provider.CallLog.Calls;
+import android.telephony.MSimTelephonyManager;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -137,6 +138,7 @@ public class CallDetailHistoryAdapter extends BaseAdapter {
         CallTypeIconsView callTypeIconView =
                 (CallTypeIconsView) result.findViewById(R.id.call_type_icon);
         TextView callTypeTextView = (TextView) result.findViewById(R.id.call_type_text);
+        TextView callSubscriptionTextView = (TextView) result.findViewById(R.id.call_subscription_text);
         TextView dateView = (TextView) result.findViewById(R.id.date);
         TextView durationView = (TextView) result.findViewById(R.id.duration);
 
@@ -144,6 +146,13 @@ public class CallDetailHistoryAdapter extends BaseAdapter {
         callTypeIconView.clear();
         callTypeIconView.add(callType);
         callTypeTextView.setText(mCallTypeHelper.getCallTypeText(callType));
+        if (MSimTelephonyManager.getDefault().isMultiSimEnabled() && details.subscription != -1) {
+            callSubscriptionTextView.setText(mContext.getString(R.string.callSubscriptionText,
+                    (details.subscription + 1)));
+            callSubscriptionTextView.setVisibility(View.VISIBLE);
+        } else {
+            callSubscriptionTextView.setVisibility(View.GONE);
+        }
         // Set the date.
         CharSequence dateValue = DateUtils.formatDateRange(mContext, details.date, details.date,
                 DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE |

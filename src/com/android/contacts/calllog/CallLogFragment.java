@@ -387,6 +387,11 @@ public class CallLogFragment extends ListFragment
                 // We're calling a regular PSTN phone number.
                 // Construct a tel: URI, but do some other possible cleanup first.
                 int callType = cursor.getInt(CallLogQuery.CALL_TYPE);
+                int subId;
+                if (!cursor.isNull(CallLogQuery.SUB_ID))
+                    subId = cursor.getInt(CallLogQuery.SUB_ID);
+                else
+                    subId = -1;
                 if (!number.startsWith("+") &&
                        (callType == Calls.INCOMING_TYPE
                                 || callType == Calls.MISSED_TYPE)) {
@@ -395,7 +400,7 @@ public class CallLogFragment extends ListFragment
                     number = mAdapter.getBetterNumberFromContacts(number, countryIso);
                 }
                 intent = ContactsUtils.getCallIntent(
-                        Uri.fromParts(Constants.SCHEME_TEL, number, null));
+                        Uri.fromParts(Constants.SCHEME_TEL, number, null), subId);
             }
             intent.setFlags(
                     Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
